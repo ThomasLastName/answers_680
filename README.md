@@ -32,7 +32,7 @@ I recommend having the directory where your version python is installed written 
 - [x] Have git installed on your computer
 
 **Installation Steps Using git:**
-Navigate  to the `Lib` folder of the version of python you want to use. Once there, command `git clone https://github.com/ThomasLastName/answers_680.git`, which will create and populate folder called `answers_680` in the same directory.
+Navigate  to the `Lib` folder of the version of python you want to use. Once there, command `git clone https://github.com/ThomasLastName/answers_680.git`, which will create and populate a folder called `answers_680` in the same directory.
 
 For example, given that the directory of my `Lib` folder is `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib` on my personal computer, I would navigate there by pasting `cd C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib` into the Windows command line, and then I would paste `git clone https://github.com/ThomasLastName/answers_680.git`.
 
