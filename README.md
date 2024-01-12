@@ -51,7 +51,7 @@ For instance, to continue the example above, if I created the folder `answers_68
 
 ---
 
-# Detailed Installation Instructions Using the Graphical Interface
+## Detailed Installation Instructions Using the Graphical Interface
 
 **Installation Steps Using the Graphical Interface:**
 Click the colorful `<> Code` button at [https://github.com/ThomasLastName/answers_680](https://github.com/ThomasLastName/answers_680) and select `Download ZIP` from the dropdown menu. This should download a zipped folder called `answers_680` containing within it an unzipped folder of the same name, which you just need to click and drag (or copy and paste) into the `Lib` folder of your preferred version of python.
