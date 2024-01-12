@@ -3,7 +3,7 @@
 ### ~~~
 
 import numpy as np
-from quality_of_life.my_numpy_utils         import generate_random_1d_data, my_min, my_max
+from quality_of_life.my_numpy_utils import generate_random_1d_data, my_min, my_max
 
 #
 # ~~~ A helper function that prepares data identical to Fouract's in https://github.com/foucart/Mathematical_Pictures_at_a_Data_Science_Exhibition/blob/master/Python/Chapter01.ipynb
