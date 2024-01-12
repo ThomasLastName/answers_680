@@ -12,7 +12,7 @@ Each of the files in my [`labs_680`](https://github.com/ThomasLastName/labs_680)
 Besides some standard libraries, this repo depends on the folder of code [quality_of_life](https://github.com/ThomasLastName/quality_of_life), which is simply a collection of coding shortcuts that I want to be able to use when writing the demos for this class, and in every other python project that I engage in.
 
 **List of Requirements in Order to Use this Code:**
-- [x] Have python installed and know how to edit run python files
+- [x] Have python installed and know how to edit and run python files
 - [x] **(important)** Know the directory of your python's `Lib` folder (see below)
 - [x] Have the repository [quality_of_life](https://github.com/ThomasLastName/quality_of_life) already stored in your `Lib` folder. This has its own installation steps, similar to the steps for this repo. See its REDAME for more info.
 - [x] Have the prerequisite standard packages installed:
