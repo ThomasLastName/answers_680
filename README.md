@@ -22,8 +22,7 @@ Besides some standard libraries, this repo depends on the folder of code [qualit
 
 **More on the Directory of Your Python's `Lib` Folder:** Unless you made a point of moving python after installing it, this will be the directory to which you installed python, plus `\Lib`. For example, on my personal computer, python is located in the folder  `C:\Users\thoma\AppData\Local\Programs\Python\Python310`, within which many things are contained, including a folder called `Lib`. Thus, the directory of my `Lib` folder is `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib`. For reference, this is also where many of python's base modules are stored, such as `warnings.py`, `pickle.py`, and `turtle.py`.
 
-I recommend having the directory where your version python is installed written down somewhere. If you do not know this location, I believe you can retrieve it in the interactive python terminal by commanding `import os; import sys; print(os.path.dirname(sys.executable))`. Thus, in Windows, you can probably just open the command line and paste into it `python -c "import os; import sys; print(os.path.dirname(sys.executable))"`. 
-
+I recommend having the directory where your version python is installed written down somewhere. If you do not know this location, I believe you can retrieve it in the interactive python terminal by commanding `import os; import sys; print(os.path.dirname(sys.executable))`. Thus, in Windows, you can probably just open the command line and paste into it `python -c "import os; import sys; print(os.path.dirname(sys.executable))"`. That said, if you have multiple versions of python on you'll computer, you may want to be mindful of which version's terminal you're executing `import os; import sys; print(os.path.dirname(sys.executable))` in.
 
 ---
 
