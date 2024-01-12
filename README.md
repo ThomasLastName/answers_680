@@ -31,9 +31,10 @@ I recommend having the directory where your version python is installed written 
 
 Basically, just create a folder called `answers_680` inside of your python's `Lib` folder, and fill it with the files from this repository
 
+---
+
 ## Detailed Installation Instructions Using git (recommended)
 
----
 
 **Additional Prerequisites Using git:**
 - [x] Have git installed on your computer
