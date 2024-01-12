@@ -36,7 +36,7 @@ f_a = lambda x: np.abs(x)                   # ~~~ the so called "ground truth" b
 x_train_a, _ = Foucarts_training_data()     # ~~~ take only the x data
 np.random.seed(123)                         # ~~~ for improved reproducibility
 y_train_a = f_a(x_train_a) + (1/20)*np.random.random(size=x_train_a.size)   # ~~~ a less noisy version of Foucart's data
-explanation_a_4 = "A Degree 4 Polynomial Can't Approximate the Point of Discontinuity Very Well"
+explanation_a_4 = "A Degree 4 Polynomial Can't Approximate the Corner Very Well"
 explanation_a_10 = "A Degree 10 Polynomial May Fit Well when the Data is not Too Noisy"
 
 #
@@ -44,8 +44,8 @@ explanation_a_10 = "A Degree 10 Polynomial May Fit Well when the Data is not Too
 f_b = lambda x: np.exp(x)*np.cos(3*x*np.exp(x))     # ~~~ a more complicated choice of ground truth
 np.random.seed(680)                                 # ~~~ for improved reproducibility
 x_train_b, y_train_b, _, _ = generate_random_1d_data( ground_truth=f_b, n_train=50, noise=0.3 )
-explanation_b_4 = "A Degree 4 Polynomial Can't Capture the Behavior of a Complex Ground Truth"
-explanation_b_10 = "A Degree 10 Polynomial May Fit Well when the Ground Truth is Complicated"
+explanation_b_4 = "A Degree 4 Polynomial Can't Model a Complex Ground Truth"
+explanation_b_10 = "A Degree 10 Polynomial Offers More Approximation Power"
 
 
 
