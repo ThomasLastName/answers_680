@@ -6,6 +6,7 @@ These are the answers to the exercises presented in labs for the class MATH 680 
 # Usage
 Each of the files in my [`labs_680`](https://github.com/ThomasLastName/labs_680) repo contains multiple reproducible demonstations, as well as 1-3 exercises. Contained within _this_ repo are my solutions to those exercises.
 
+
 ---
 
 # Prerequisites for Using This Code
@@ -23,9 +24,16 @@ Besides some standard libraries, this repo depends on the folder of code [qualit
 
 I recommend having the directory where your version python is installed written down somewhere. If you do not know this location, I believe you can retrieve it in the interactive python terminal by commanding `import os; import sys; print(os.path.dirname(sys.executable))`. Thus, in Windows, you can probably just open the command line and paste into it `python -c "import os; import sys; print(os.path.dirname(sys.executable))"`. 
 
+
 ---
 
-# Installation Using git (recommended)
+# Installation
+
+Basically, just create a folder called `quality_of_life` inside of your python's `Lib` folder, and fill it with the files from this repository
+
+## Detailed Installation Instructions Using git (recommended)
+
+---
 
 **Additional Prerequisites Using git:**
 - [x] Have git installed on your computer
@@ -42,7 +50,7 @@ For instance, to continue the example above, if I created the folder `answers_68
 
 ---
 
-# Installation Using the Graphical Interface
+# Detailed Installation Instructions Using the Graphical Interface
 
 **Installation Steps Using the Graphical Interface:**
 Click the colorful `<> Code` button at [https://github.com/ThomasLastName/answers_680](https://github.com/ThomasLastName/answers_680) and select `Download ZIP` from the dropdown menu. This should download a zipped folder called `answers_680` containing within it an unzipped folder of the same name, which you just need to click and drag (or copy and paste) into the `Lib` folder of your preferred version of python.
