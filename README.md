@@ -1,52 +1,53 @@
 # MATH 680 ANSWERS TO EXERCISES IN LABS
-These are the answers to the exercises presented in labs for the class MATH 680 at Texas A&M university. I wrote these as the TA for the class in spring 2024.
+These are the answers to the exercises presented in labs for the class MATH 680 at Texas A&M university, which can be found in my repo [labs_680](https://github.com/ThomasLastName/labs_680). I wrote these as the TA for the class in spring 2024.
 
 ---
 
 # Usage
-Each of the files in the `labs_680` contains multiple reproducible demonstations, as well as 1-3 exercises. I will walk you through them during our Thursday meetings.
+Each of the files in my [`labs_680`](https://github.com/ThomasLastName/labs_680) repo contains multiple reproducible demonstations, as well as 1-3 exercises. Contained within _this_ repo are my solutions to those exercises.
 
 ---
 
-# Dependencies
+# Prerequisites for Using This Code
+Besides some standard libraries, this repo depends on the folder of code [quality_of_life](https://github.com/ThomasLastName/quality_of_life), which is simply a collection of coding shortcuts that I want to be able to use when writing the demos for this class, and in every other python project that I engage in.
 
-Besides some standard libraries, this repo depends on the folder of code [answers_680](https://github.com/ThomasLastName/answers_680) and, in turn, both depend on the folder of code [quality_of_life](https://github.com/ThomasLastName/quality_of_life). The former's existence is analogous to having exercises in the back of a textbook, rather in the same place where the exercises are stated. The latter is simply a collection of coding shortcuts that I want to be able to use when writing these demos.
-
----
-
-# Installation Using the Graphical Interface
-
-### Prerequisites for Installation Using the Graphical Interface
+**List of Requirements in Order to Use this Code:**
 - [x] Have python installed and know how to edit run python files
-- [x] Know the directory where python is installed on your computer (see below)
-- [x] Have the repositories [answers_680](https://github.com/ThomasLastName/answers_680) and [quality_of_life](https://github.com/ThomasLastName/quality_of_life) already stored in your `Lib` folder (those both have their own installation steps similar to the steps for this repo)
+- [x] **(important)** Know the directory of your python's `Lib` folder (see below)
+- [x] Have the repository [quality_of_life](https://github.com/ThomasLastName/quality_of_life) already stored in your `Lib` folder. This has its own installation steps, similar to the steps for this repo. See its REDAME for more info.
 - [x] Have the prerequisite standard packages installed:
     - `numpy`, `matplotlib`, and `quality_of_life` for minimal functionality
     - `tensorflow`, `pytorch`, `sklearn` for ~98% functionality
     -  `alive_progress` for complete functionality (this is included for my own sanity when writing the code)
 
-**More on the directory where python is installed:** I recommend having this written down somewhere. You can retrieve this in the interactive python terminal by commanding `import os; import sys; print(os.path.dirname(sys.executable))`. Thus, in Windows, you can probably just open the command line and paste into it `python -c "import os; import sys; print(os.path.dirname(sys.executable))"`. That's the directory where python is located (e.g., `C:\Users\thoma\AppData\Local\Programs\Python\Python310` on my computer) and within *that* directory you can find a folder called `Lib` (e.g., `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib` on my computer). For reference, this is where many of python's base modules are stored, such as `warnings.py`, `pickle.py`, and `turtle.py`.
+**More on the Directory of Your Python's `Lib` Folder:** Unless you made a point of moving python after installing it, this will be the directory to which you installed python, plus `\Lib`. For example, on my personal computer, python is located in the folder  `C:\Users\thoma\AppData\Local\Programs\Python\Python310`, within which many things are contained, including a folder called `Lib`. Thus, the directory of my `Lib` folder is `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib`. For reference, this is also where many of python's base modules are stored, such as `warnings.py`, `pickle.py`, and `turtle.py`.
 
-### Installation Steps Using the Graphical Interface
-Click the colorful `<> Code` button and select `Download ZIP` from the dropdown menu. This should download a zipped folder called `labs_680` containing within it an unzipped folder of the same name, which you just need to click and drag (or copy and paste) into the `Lib` folder of your preferred version of python.
-
-### Subsequent Updates Using the Graphical Interface
-You'll have to repeat the process, again. When you attempt to click and drag (or copy and paste) the next time, your operating system probably prompts you with something like "These files already exist! Are you tweaking or did you want to replace them?" and you can just click "replace" or whatever it prompts you with.
+I recommend having the directory where your version python is installed written down somewhere. If you do not know this location, I believe you can retrieve it in the interactive python terminal by commanding `import os; import sys; print(os.path.dirname(sys.executable))`. Thus, in Windows, you can probably just open the command line and paste into it `python -c "import os; import sys; print(os.path.dirname(sys.executable))"`. 
 
 ---
 
-# Installation Using git
+# Installation Using git (recommended)
 
-### Prerequisites for Installation Using the git
-- [x] All the same prerequisites as for the installation using the graphical interface
-- [x] Additionally, have git installed on your computer
+**Additional Prerequisites Using git:**
+- [x] Have git installed on your computer
 
-### Installation Steps Using the git
-Navigate to wherever you want to store these demos on your computer (anywhere is fine), and within that directory command `git clone https://github.com/ThomasLastName/labs_680.git`, which will create a folder called `labs_680` in the same directory.
+**Installation Steps Using git:**
+Navigate  to the `Lib` folder of the version of python you want to use. Once there, command `git clone https://github.com/ThomasLastName/answers_680.git`, which will create and populate folder called `answers_680` in the same directory.
 
-For instance, if I just want this folder to be on my desktop, then the directory that I want to navigate to would be `C:\Users\thoma\OneDrive\Desktop` on my personal computer. To get there, I would paste `cd C:\Users\thoma\OneDrive\Desktop` into the command line or shell. Then, having already navigated to the directory where I want to create the folder, I am ready to paste `git clone https://github.com/ThomasLastName/labs_680.git` into the command line. That's it!
+For example, given that the directory of my `Lib` folder is `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib` on my personal computer, I would navigate there by pasting `cd C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib` into the Windows command line, and then I would paste `git clone https://github.com/ThomasLastName/answers_680.git`.
 
-### Subsequent Updates Using git
-Navigate the the directory of the folder that you created, and within that directory command `git pull https://github.com/ThomasLastName/labs_680.git`.
+**Subsequent Updates Using git:**
+Navigate the the directory of the folder that you created, and within that directory command `git pull https://github.com/ThomasLastName/answers_680.git`.
 
-For instance, to continue the example above, if I created the folder `labs_680` on my desktop `C:\Users\thoma\OneDrive\Desktop`, then I'll want to navigate there in the command line by pasting `cd C:\Users\thoma\OneDrive\Desktop\labs_680` and, then, I'm ready to paste `git pull https://github.com/ThomasLastName/labs_680.git` into the command line.
+For instance, to continue the example above, if I created the folder `answers_680` in my `Lib` folder `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib`, then the directory of the folder `answers_680` is `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib\answers_680`. I'll want to navigate there in the Windows command line by pasting `cd C:\Users\thoma\OneDrive\Desktop\answers_680` and, then, I'm ready to paste `git pull https://github.com/ThomasLastName/answers_680.git`.
+
+---
+
+# Installation Using the Graphical Interface
+
+**Installation Steps Using the Graphical Interface:**
+Click the colorful `<> Code` button at [https://github.com/ThomasLastName/answers_680](https://github.com/ThomasLastName/answers_680) and select `Download ZIP` from the dropdown menu. This should download a zipped folder called `answers_680` containing within it an unzipped folder of the same name, which you just need to click and drag (or copy and paste) into the `Lib` folder of your preferred version of python.
+
+**Subsequent Updates Using the Graphical Interface:**
+You'll have to repeat the process, again. When you attempt to click and drag (or copy and paste) the next time, your operating system probably prompts you with something like "These files already exist! Are you tweaking or did you want to replace them?" and you can just click "replace" or whatever it prompts you with.
+
