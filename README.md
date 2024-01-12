@@ -15,7 +15,7 @@ Besides some standard libraries, this repo depends on the folder of code [qualit
 **List of Requirements in Order to Use this Code:**
 - [x] Have python installed and know how to edit and run python files
 - [x] **(important)** Know the directory of your python's `Lib` folder (see below)
-- [x] Have the repository [quality_of_life](https://github.com/ThomasLastName/quality_of_life) already stored in your `Lib` folder. This has its own installation steps, similar to the steps for this repo. See its REDAME for more info.
+- [x] Have the repository [quality_of_life](https://github.com/ThomasLastName/quality_of_life) already stored in your `Lib` folder. This has its own installation steps, similar to the steps for this repo. See its README for more info.
 - [x] Have the prerequisite standard packages installed: 
     - `numpy` and `matplotlib` for minimal functionality
     - `tensorflow`, `pytorch`, `sklearn` for complete functionality
