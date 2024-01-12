@@ -4,7 +4,7 @@ These are the answers to the exercises presented in labs for the class MATH 680 
 ---
 
 # Usage
-Each of the files in my [`labs_680`](https://github.com/ThomasLastName/labs_680) repo contains multiple reproducible demonstations, as well as 1-3 exercises. Contained within _this_ repo are my solutions to those exercises.
+Each of the files in my [labs_680](https://github.com/ThomasLastName/labs_680) repo contains multiple reproducible demonstations, as well as 1-3 exercises. Contained within _this_ repo are my solutions to those exercises.
 
 
 ---
