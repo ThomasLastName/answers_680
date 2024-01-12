@@ -38,7 +38,7 @@ For example, given that the directory of my `Lib` folder is `C:\Users\thoma\AppD
 **Subsequent Updates Using git:**
 Navigate to the directory of the folder that you created, and within that directory command `git pull https://github.com/ThomasLastName/answers_680.git`.
 
-For instance, to continue the example above, if I created the folder `answers_680` in my `Lib` folder `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib`, then the directory of the folder `answers_680` is `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib\answers_680`. I'll want to navigate there in the Windows command line by pasting `cd C:\Users\thoma\OneDrive\Desktop\answers_680` and, then, I'm ready to paste `git pull https://github.com/ThomasLastName/answers_680.git`.
+For instance, to continue the example above, if I created the folder `answers_680` in my `Lib` folder `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib`, then the directory of the folder `answers_680` is `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib\answers_680`. I'll want to navigate there in the Windows command line by pasting `cd C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib\answers_680` and, then, I'm ready to paste `git pull https://github.com/ThomasLastName/answers_680.git`.
 
 ---
 
