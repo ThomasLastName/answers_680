@@ -15,8 +15,8 @@ Besides some standard libraries, this repo depends on the folder of code [qualit
 - [x] Have python installed and know how to edit and run python files
 - [x] **(important)** Know the directory of your python's `Lib` folder (see below)
 - [x] Have the repository [quality_of_life](https://github.com/ThomasLastName/quality_of_life) already stored in your `Lib` folder. This has its own installation steps, similar to the steps for this repo. See its REDAME for more info.
-- [x] Have the prerequisite standard packages installed:
-    - `numpy`, `matplotlib`, and `quality_of_life` for minimal functionality
+- [x] Have the prerequisite standard packages installed: 
+    - `numpy` and `matplotlib` for minimal functionality
     - `tensorflow`, `pytorch`, `sklearn` for complete functionality
 
 **More on the Directory of Your Python's `Lib` Folder:** Unless you made a point of moving python after installing it, this will be the directory to which you installed python, plus `\Lib`. For example, on my personal computer, python is located in the folder  `C:\Users\thoma\AppData\Local\Programs\Python\Python310`, within which many things are contained, including a folder called `Lib`. Thus, the directory of my `Lib` folder is `C:\Users\thoma\AppData\Local\Programs\Python\Python310\Lib`. For reference, this is also where many of python's base modules are stored, such as `warnings.py`, `pickle.py`, and `turtle.py`.
