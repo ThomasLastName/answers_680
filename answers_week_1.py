@@ -6,7 +6,9 @@
 ### ~~~
 
 import numpy as np
-from quality_of_life.my_numpy_utils import generate_random_1d_data, my_min, my_max
+from matplotlib import pyplot as plt
+from quality_of_life.my_numpy_utils         import generate_random_1d_data, my_min, my_max
+from quality_of_life.my_visualization_utils import buffer, points_with_curves
 
 #
 # ~~~ A helper function that prepares data identical to Fouract's in https://github.com/foucart/Mathematical_Pictures_at_a_Data_Science_Exhibition/blob/master/Python/Chapter01.ipynb
@@ -26,6 +28,73 @@ def Foucarts_training_data():
                         -0.13801677,  0.08287235, -0.63793798, -0.12801989,  2.5073981 ,
                          0.12439097,  1.67456455,  1.7480593 ,  1.93609588, -0.18963857])
     return x_train, y_train
+
+#
+# ~~~ A helper function for polynomial regression
+def univar_poly_fit( x, y, degree=1 ):
+    coeffs = np.polyfit( x, y, degree )
+    poly = np.poly1d(coeffs)
+    return poly, coeffs
+
+#
+# ~~~ Measure how well the model does when certain subsets of the data are withheld from training (written to mimic the sklearn.model_selection function of the same name)
+def cross_val_score( estimator, eventual_x_train, eventual_y_train, cv, scoring, shuffle=False, plot=False, ncol=None, nrow=None, f=None, grid=None ):
+    #
+    # ~~~ Boiler plate stuff, not important
+    scores = []
+    # models = []
+    if plot:
+        ncol = 1 if ncol is None else ncol
+        nrow = cv if nrow is None else nrow
+        fig,axs = plt.subplots(nrow,ncol)
+        axs = axs.flatten()
+        xlim = buffer(eventual_x_train)
+        ylim = buffer(eventual_y_train)
+        grid = np.linspace( min(xlim), max(xlim), 1001 )
+    #
+    # ~~~ Partition the training data
+    if shuffle: # ~~~ shuffle the data before partitionint it
+        reordered_indices = np.random.permutation( len(eventual_y_train) )
+        eventual_x_train = eventual_x_train[reordered_indices]
+        eventual_y_train = eventual_y_train[reordered_indices]
+    x_val_sets = np.array_split( eventual_x_train, cv )     # ~~~ split `eventual_x_train` into `cv` different pieces
+    y_val_sets = np.array_split( eventual_y_train, cv )     # ~~~ split `eventual_y_train` into `cv` different pieces
+    #
+    # ~~~ For each one of the pieces (say, the i-th piece) into which we split our data set...
+    for i in range(cv):
+        #
+        # ~~~ Use the i-th subset of our data (which is 1/cv percent of our data) to train a model
+        x_train = x_val_sets[i]
+        y_train = y_val_sets[i]
+        model = estimator( x_train, y_train )
+        #
+        # ~~~ Use the remaining cv-1 parts of our data (i.e., (cv-1)/cv percent of our data) to test the fit
+        x_test = np.concatenate( x_val_sets[:i] + x_val_sets[(i+1):] )  # ~~~ all the data we didn't train on
+        y_test = np.concatenate( y_val_sets[:i] + y_val_sets[(i+1):] )  # ~~~ all the data we didn't train on
+        scores.append(scoring( y_test, model(x_test) ))
+        #
+        # ~~~ Plot the model that was trained on this piece of the data, if desired (this is mostly useful for building intuition)
+        if plot:
+            axs[i].plot( x_train, y_train, "o", color="blue", label="Training Data" )
+            axs[i].plot( x_test, y_test, "o", color="green", label="Test Data" )
+            axs[i].plot( grid, model(grid), "-", color="blue", label="Predictions" )
+            if (f is not None and grid is not None):
+                axs[i].plot( grid, f(grid), "--", color="green", label="Ground Truth" )
+            axs[i].set_xlim(xlim)
+            axs[i].set_ylim(ylim)
+            axs[i].grid()
+            axs[i].legend()
+    if plot:    # ~~~ after the loop is over, perform the final configuration of the plot, if applicable, and then render it
+        fig.tight_layout()
+        plt.show()
+    return scores
+
+#
+# ~~~ Define the metric by which we will assess accurcay: mean squared error
+def mean_squared_error( true, predicted ):
+    return np.mean( (true-predicted)**2 )
+    # ~~~ usually you'd load this or one of the other options from sklearn.meatrics (https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values)
+    # ~~~ we have defined it explicitly for transparency and simplicity
 
 
 
@@ -115,3 +184,45 @@ def list_all_the_hat_functions(knots):
 # ~~~ A wrapper for globally continuous linear spline regression
 def univar_spline_fit( x_train, y_train, knots ):
     return empirical_risk_minimization_with_linear_H( x_train, y_train, list_all_the_hat_functions(knots) )
+
+
+
+### ~~~
+## ~~~ Answers to the third exercise
+### ~~~
+
+#
+# ~~~ Make enough executive decisions that all that remains is for someone to supply us with the data
+def Toms_example_of_the_cv_workflow( x_train, y_train, n_bins=2, plot=True, plot_like_Foucart=False, max_degree=20, ground_truth=None ):
+    #
+    # ~~~ Set hyperhyperparameters: those which will be used when determining the hyperparameters
+    possible_hyperparameters = np.arange(max_degree)+1      # ~~~ i.e., np.array([1,2,...,max_degree])
+    scores = []     # ~~~ an object in which to record the results
+    #
+    # ~~~ For each possible degree that we're considering for polynomial regression
+    for deg in possible_hyperparameters:
+        #
+        # ~~~ Do cross validation
+        estimator = lambda x_train,y_train: univar_poly_fit( x_train, y_train, degree=deg )[0]  # ~~~ wrapper that fits a polynomial of degree `deg` to the data y_train ~ x_train
+        current_scores = cross_val_score( estimator, x_train, y_train, cv=int(n_bins), scoring=mean_squared_error )
+        scores.append(current_scores)
+    #
+    # ~~~ Take the best hyperparameter and train using the full data
+    best_degree = possible_hyperparameters[ np.median(scores,axis=1).argmin() ] # ~~~ lowest median "generalization" error of trianing on only a subset of the data
+    best_poly,_ = univar_poly_fit( x_train, y_train, degree=best_degree )
+    if plot:
+        points_with_curves(
+                x = x_train,
+                y = y_train,
+                curves = (best_poly,) if (ground_truth is None) else (best_poly,ground_truth),
+                title = f"Based on CV with {n_bins} Bins, Choose Degree {best_degree} Polynomial Regression",
+                curve_colors = ("Blue",) if (ground_truth is None) else None,               # ~~~ `None` reverts to default settings of `points_with_curves`
+                curve_labels = ("Fitted Polynomial",) if (ground_truth is None) else None,  # ~~~ `None` reverts to default settings of `points_with_curves`
+                marker_color = "Blue" if (ground_truth is None) else None,      # ~~~ `None` reverts to default settings of `points_with_curves`
+                curve_marks = ("-") if (ground_truth is None) else None,        # ~~~ `None` reverts to default settings of `points_with_curves`
+                xlim = [-1,1] if plot_like_Foucart else None,       # ~~~ `None` reverts to default settings of `points_with_curves`
+                ylim = [-1.3,5.3] if plot_like_Foucart else None,   # ~~~ `None` reverts to default settings of `points_with_curves`
+                model_fit = (ground_truth is not None)
+            )
+    return scores
+
