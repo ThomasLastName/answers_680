@@ -127,7 +127,10 @@ explanation_b_10 = "A Degree 10 Polynomial Offers More Approximation Power"
 
 #
 # ~~~ Perform ERM for any vector space of functions H that the user supplies (recall: degree d polynomial regression is ERM with H={1,x,...,x^d})
-def empirical_risk_minimization_with_linear_H( x_train, y_train, list_of_functions_that_span_H ):
+def empirical_risk_minimization_with_linear_H( x_train, y_train, list_of_functions_that_span_H, ell_2_penalization_parameter=None ):
+    #
+    # ~~~ Shape coercion
+    y_train = y_train.squeeze()
     #
     # ~~~ If list_of_functions_that_span_H = \{ \phi_1, \ldots, \phi_d \}, then the model matrix is the matrix with j-th column \phi_j(x_train), i.e., (i,j)-th entry \phi_j(x^{(i)})
     model_matrix = np.vstack([ phi(x_train) for phi in list_of_functions_that_span_H ]).T   # ~~~ for list_of_functions_that_span_H==[1,x] this coincides with ordinary least squares
@@ -136,6 +139,19 @@ def empirical_risk_minimization_with_linear_H( x_train, y_train, list_of_functio
     m,n = model_matrix.shape
     assert m==len(x_train)==len(y_train)
     assert n==len(list_of_functions_that_span_H)
+    #
+    # ~~~ For regularization (used later in ch6), augment the problem as in equation (6.4) of the text
+    if ell_2_penalization_parameter is not None:
+        if not isinstance( ell_2_penalization_parameter, np.ndarray ):
+            Lambda = ell_2_penalization_parameter**2 * np.eye(n)
+        elif len(ell_2_penalization_parameter.shape)==1:
+            Lambda = np.diag(ell_2_penalization_parameter)
+        elif len(ell_2_penalization_parameter.shape)==2:
+            Lambda = ell_2_penalization_parameter
+        else:
+            raise ValueError("Only a scalar, numpy vector, or numpy matrix may be passed as `ell_2_penalization_parameter`")
+        model_matrix = np.vstack(( model_matrix, Lambda ))
+        y_train = np.concatenate(( y_train, np.zeros(n) ))
     #
     #~~~ Find some coefficients which minimize MSE
     coeffs = np.linalg.lstsq( model_matrix, y_train, rcond=None )[0]
@@ -146,10 +162,10 @@ def empirical_risk_minimization_with_linear_H( x_train, y_train, list_of_functio
 
 #
 # ~~~ Wrap polynomial regression for convenience
-def my_univar_poly_fit( x_train, y_train, degree ):
-    H = [ (lambda x,j=j: x**j) for j in range(degree+1) ]   # ~~~ define a list of functions which span the hypothesis class, in this case [ 1, x , x^2, ..., x^degree ]
-    H = H[::-1]     # ~~~ reverse the order in which they're listed (merely a convention adopted to be consistent with the convention used by np.polyfit)
-    return empirical_risk_minimization_with_linear_H( x_train, y_train, H )   # ~~~ that's it!
+def my_univar_poly_fit( x_train, y_train, degree, penalty=None ):
+    monomials = [ (lambda x,j=j: x**j) for j in range(int(degree)+1) ]   # ~~~ define a list of functions which span the hypothesis class, in this case [ 1, x , x^2, ..., x^degree ]
+    basis_for_H = monomials[::-1]   # ~~~ reverse the order in which they're listed; this is merely a convention adopted to be consistent with the convention used by np.polyfit
+    return empirical_risk_minimization_with_linear_H( x_train, y_train, basis_for_H, ell_2_penalization_parameter=penalty )     # ~~~ that's it!
 
 #
 # ~~~ Define a routint that creates the list "H = [(j-th hat function) for j in range(n)]" where n is the length of a sequence of knots
@@ -182,8 +198,8 @@ def list_all_the_hat_functions(knots):
 
 #
 # ~~~ A wrapper for globally continuous linear spline regression
-def univar_spline_fit( x_train, y_train, knots ):
-    return empirical_risk_minimization_with_linear_H( x_train, y_train, list_all_the_hat_functions(knots) )
+def univar_spline_fit( x_train, y_train, knots, penalty=None ):
+    return empirical_risk_minimization_with_linear_H( x_train, y_train, list_all_the_hat_functions(knots), ell_2_penalization_parameter=penalty )
 
 
 
