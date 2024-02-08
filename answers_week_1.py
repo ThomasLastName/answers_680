@@ -132,8 +132,8 @@ def empirical_risk_minimization_with_linear_H( x_train, y_train, list_of_functio
     # ~~~ Shape coercion
     y_train = y_train.squeeze()
     #
-    # ~~~ If list_of_functions_that_span_H = \{ \phi_1, \ldots, \phi_d \}, then the model matrix is the matrix with j-th column \phi_j(x_train), i.e., (i,j)-th entry \phi_j(x^{(i)})
-    model_matrix = np.vstack([ phi(x_train) for phi in list_of_functions_that_span_H ]).T   # ~~~ for list_of_functions_that_span_H==[1,x] this coincides with ordinary least squares
+    # ~~~ Enumerating list_of_functions_that_span_H = \{ \phi_1, \ldots, \phi_d \}, the model matrix is the matrix with j-th column \phi_j(x_train), i.e., (i,j)-th entry \phi_j(x^{(i)})
+    model_matrix = np.column_stack([ phi(x_train) for phi in list_of_functions_that_span_H ])   # ~~~ for list_of_functions_that_span_H==[1,x] this coincides with ordinary least squares
     #
     #~~~ An optional sanity check
     m,n = model_matrix.shape
@@ -142,11 +142,11 @@ def empirical_risk_minimization_with_linear_H( x_train, y_train, list_of_functio
     #
     # ~~~ For regularization (used later in ch6), augment the problem as in equation (6.4) of the text
     if ell_2_penalization_parameter is not None:
-        if not isinstance( ell_2_penalization_parameter, np.ndarray ):
+        if not isinstance( ell_2_penalization_parameter, np.ndarray ):  # ~~~ scalar \lambda
             Lambda = ell_2_penalization_parameter**2 * np.eye(n)
-        elif len(ell_2_penalization_parameter.shape)==1:
+        elif len(ell_2_penalization_parameter.shape)==1:                # ~~~ vectorial \lambda (not seen in lecture)
             Lambda = np.diag(ell_2_penalization_parameter)
-        elif len(ell_2_penalization_parameter.shape)==2:
+        elif len(ell_2_penalization_parameter.shape)==2:                # ~~~ \lambda is a matrix (I think this is an exercise in the text?)
             Lambda = ell_2_penalization_parameter
         else:
             raise ValueError("Only a scalar, numpy vector, or numpy matrix may be passed as `ell_2_penalization_parameter`")
@@ -157,7 +157,7 @@ def empirical_risk_minimization_with_linear_H( x_train, y_train, list_of_functio
     coeffs = np.linalg.lstsq( model_matrix, y_train, rcond=None )[0]
     #
     #~~~ A vectorized implementation of the MSE-minimizing function \widehat{\phi}(x) = \sum_j c_j\phi_j(x)
-    empirical_risk_minimizer = lambda x, c=coeffs: np.vstack([ phi(x) for phi in list_of_functions_that_span_H ]).T @ c
+    empirical_risk_minimizer = lambda x, c=coeffs: np.column_stack([ phi(x) for phi in list_of_functions_that_span_H ]) @ c
     return empirical_risk_minimizer, coeffs
 
 #
