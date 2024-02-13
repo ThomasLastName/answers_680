@@ -75,7 +75,7 @@ def preceptron_update_without_bias( X, y, w, random_update=False ):
 
 
 
-compute_slope_and_intercept = lambda w,b: (-w[0]/w[1], b/w[1])
+compute_slope_and_intercept = lambda w,b: (-w[0]/w[1], -b/w[1])
 
 
 class HalfSpaceClassifier:
@@ -85,13 +85,13 @@ class HalfSpaceClassifier:
         self.b = b
         self.n_features = len(w)
     def __call__(self,X):
-        predictions = np.sign( X@self.w - self.b )
+        predictions = np.sign( X@self.w + self.b )
         assert np.abs(predictions).min()>0     # ~~~ impose the assumption that we never exactly touch the classification boundary
         return  predictions
 
 
 
-def traning_data_to_feasibility_parameters(X_train,y_train):
+def training_data_to_feasibility_parameters(X_train,y_train):
     assert set(y_train)=={-1,1}
     A = augment(X_train) * y_train[:, np.newaxis]
     b = np.ones((A.shape[0],1))
