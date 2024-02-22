@@ -33,11 +33,11 @@ def build_from_data( x_data, y_data, deg=1, loss_function=mse, dtype=torch.get_d
     #
     # ~~~ Assuming that `loss_function` is MSE, define a function the gradient of the function `loss_of_residual`
     def grad_of_mse_loss(coefficients):
-        return 2*M.T@( M@coefficients - y_data )    # ~~~ the gradient of the quadratic function "coefficients\mapsto\|y-M@coefficients\|^2"
+        return 2*M.T@( M@coefficients - y_data ) / len(x_data)  # ~~~ the gradient of the quadratic function "coefficients\mapsto\|y-M@coefficients\|^2"
     #
     # ~~~ Assuming that `loss_function` is MSE, compute the (best) lambda such that `loss_of_residual` is lambda-smooth
-    hessian = 2*M.T@M                           # ~~~ the (constant) Hessian of the quadratic function "coefficients\mapsto\|y-M@coefficients\|^2
-    L = torch.linalg.eigvalsh(hessian).max()    # ~~~ the (\ell^2-\ell^2) operator norm of a symmetric matrix (such as the Hessian) is simply its largest singular value
+    hessian = 2*M.T@M                                       # ~~~ the (constant) Hessian of the quadratic function "coefficients\mapsto\|y-M@coefficients\|^2
+    L = torch.linalg.eigvalsh(hessian).max() / len(x_data)  # ~~~ the (\ell^2-\ell^2) operator norm of a symmetric matrix (such as the Hessian) is simply its largest singular value
     #
     return loss_of_residual, grad_of_mse_loss, L
 
