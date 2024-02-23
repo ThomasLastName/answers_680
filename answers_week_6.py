@@ -25,7 +25,7 @@ def build_from_data( x_data, y_data, deg=1, loss_function=mse, dtype=torch.get_d
     #
     # ~~~ Define the objective function in terms of the processed data
     def loss_of_residual(coefficients):
-        coefficients.shape==(dim_H,)
+        assert coefficients.shape==(dim_H,)
         assert coefficients.dtype==dtype
         vector_of_target_values = y_data
         vector_of_predicted_values = M@coefficients
