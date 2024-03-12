@@ -7,7 +7,7 @@
 
 import numpy as np
 from matplotlib import pyplot as plt
-from quality_of_life.my_numpy_utils         import generate_random_1d_data, my_min, my_max
+from quality_of_life.my_numpy_utils         import generate_random_1d_data
 from quality_of_life.my_visualization_utils import buffer, points_with_curves
 
 #
@@ -133,7 +133,7 @@ def empirical_risk_minimization_with_linear_H( x_train, y_train, list_of_functio
     y_train = y_train.squeeze()
     #
     # ~~~ Enumerating list_of_functions_that_span_H = \{ \phi_1, \ldots, \phi_d \}, the model matrix is the matrix with j-th column \phi_j(x_train), i.e., (i,j)-th entry \phi_j(x^{(i)})
-    model_matrix = np.column_stack([ phi(x_train) for phi in list_of_functions_that_span_H ])   # ~~~ for list_of_functions_that_span_H==[1,x] this coincides with ordinary least squares
+    model_matrix = np.column_stack([ phi(x_train) for phi in list_of_functions_that_span_H ])   # ~~~ for list_of_functions_that_span_H==[1,x] this coincides with ordinary  squares
     #
     #~~~ An optional sanity check
     m,n = model_matrix.shape
@@ -178,18 +178,18 @@ def list_all_the_hat_functions(knots):
         if j==0:
             next_point = knots[j+1]
             hat_functions.append( 
-                    lambda x, b=midpoint, c=next_point: my_max( 0, 1-(x-b)/(c-b) )
+                    lambda x, b=midpoint, c=next_point: np.maximum( 0, 1-(x-b)/(c-b) )
                 )   # ~~~ the positive part of the the line with value 1 at b going down to value 0 at c
         if j==(n-1):
             prior_point = knots[j-1]
             hat_functions.append(
-                    lambda x, a=prior_point, b=midpoint: my_max( 0, (x-a)/(b-a) )
+                    lambda x, a=prior_point, b=midpoint: np.maximum( 0, (x-a)/(b-a) )
                 )   # ~~~ the positive part of the the line with value 0 at a going up to value 1 at b
         else:
             prior_point = knots[j-1]
             next_point = knots[j+1]
             hat_functions.append(
-                    lambda x, a=prior_point, b=midpoint, c=next_point: my_max( 0, my_min(
+                    lambda x, a=prior_point, b=midpoint, c=next_point: np.maximum( 0, np.minimum(
                             (x-a) / (b-a),
                         1 - (x-b) / (c-b)
                         ))
