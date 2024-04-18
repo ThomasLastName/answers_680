@@ -7,7 +7,7 @@
 
 import numpy as np
 from matplotlib import pyplot as plt
-from quality_of_life.my_numpy_utils         import generate_random_1d_data
+from quality_of_life.my_numpy_utils         import generate_random_1d_data, list_all_the_hat_functions
 from quality_of_life.my_visualization_utils import buffer, points_with_curves
 
 #
@@ -166,35 +166,6 @@ def my_univar_poly_fit( x_train, y_train, degree, penalty=None ):
     monomials = [ (lambda x,j=j: x**j) for j in range(int(degree)+1) ]   # ~~~ define a list of functions which span the hypothesis class, in this case [ 1, x , x^2, ..., x^degree ]
     basis_for_H = monomials[::-1]   # ~~~ reverse the order in which they're listed; this is merely a convention adopted to be consistent with the convention used by np.polyfit
     return empirical_risk_minimization_with_linear_H( x_train, y_train, basis_for_H, ell_2_penalization_parameter=penalty )     # ~~~ that's it!
-
-#
-# ~~~ Define a routint that creates the list "H = [(j-th hat function) for j in range(n)]" where n is the length of a sequence of knots
-def list_all_the_hat_functions(knots):
-    knots = np.sort(knots)
-    n = len(knots)
-    hat_functions = []
-    for j in range(n):
-        midpoint = knots[j]
-        if j==0:
-            next_point = knots[j+1]
-            hat_functions.append( 
-                    lambda x, b=midpoint, c=next_point: np.maximum( 0, 1-(x-b)/(c-b) )
-                )   # ~~~ the positive part of the the line with value 1 at b going down to value 0 at c
-        if j==(n-1):
-            prior_point = knots[j-1]
-            hat_functions.append(
-                    lambda x, a=prior_point, b=midpoint: np.maximum( 0, (x-a)/(b-a) )
-                )   # ~~~ the positive part of the the line with value 0 at a going up to value 1 at b
-        else:
-            prior_point = knots[j-1]
-            next_point = knots[j+1]
-            hat_functions.append(
-                    lambda x, a=prior_point, b=midpoint, c=next_point: np.maximum( 0, np.minimum(
-                            (x-a) / (b-a),
-                        1 - (x-b) / (c-b)
-                        ))
-                )
-    return hat_functions
 
 #
 # ~~~ A wrapper for globally continuous linear spline regression
