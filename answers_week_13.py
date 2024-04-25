@@ -25,24 +25,24 @@
 # ## ~~~ DEMONSTRATION 2 of n: Proposition 10.3 in the special case when F is as RKHS, and V=span({ kernel(\cdot,c_i) : i=1,...,N } where centers={c_1,...,c_N}
 # ### ~~~
 
-#
-# ~~~ A function that applies Proposition 10.3 with dim(V)==deg
-def RKHS_V_spanned_by_kernels( x_train, y_train, kernel, deg ):
-    lo = min(x_train)
-    hi = max(x_train)
-    centers = np.linspace(lo,hi,deg)
-    G_u = kernel(x_train,x_train)
-    C   = kernel(x_train,centers)
-    G_u_inv = np.linalg.inv(G_u)
-    b = np.linalg.solve( C.T@G_u_inv@C, C.T@G_u_inv@y_train )
-    a = G_u_inv@y_train - G_u_inv@C@b
-    return lambda x, a=a, b=b: kernel(x,x_train)@a + kernel(x,centers)@b
+# #
+# # ~~~ A function that applies Proposition 10.3 with dim(V)==deg
+# def RKHS_V_spanned_by_kernels( x_train, y_train, kernel, deg ):
+#     lo = min(x_train)
+#     hi = max(x_train)
+#     centers = np.linspace(lo,hi,deg)
+#     G_u = kernel(x_train,x_train)
+#     C   = kernel(x_train,centers)
+#     G_u_inv = np.linalg.inv(G_u)
+#     b = np.linalg.solve( C.T@G_u_inv@C, C.T@G_u_inv@y_train )
+#     a = G_u_inv@y_train - G_u_inv@C@b
+#     return lambda x, a=a, b=b: kernel(x,x_train)@a + kernel(x,centers)@b
 
-k = lambda x,y: np.exp( -(x.reshape(-1,1)-y.reshape(1,-1))**2/2 ) / log(sqrt(2*np.pi))  # ~~~ for 1d data, (x.reshape(-1,1)-y.reshape(1,-1)).abs() is the cdist matrix
-h = .01
-k_h = lambda x,y,h=h: k(x/h,y/h)/h
-Delta = RKHS_V_spanned_by_kernels( x_train, y_train, kernel=k_h, deg=5 )
-points_with_curves( x_train, y_train, (Delta,f), grid=x_test )
+# k = lambda x,y: np.exp( -(x.reshape(-1,1)-y.reshape(1,-1))**2/2 ) / log(sqrt(2*np.pi))  # ~~~ for 1d data, (x.reshape(-1,1)-y.reshape(1,-1)).abs() is the cdist matrix
+# h = .01
+# k_h = lambda x,y,h=h: k(x/h,y/h)/h
+# Delta = RKHS_V_spanned_by_kernels( x_train, y_train, kernel=k_h, deg=5 )
+# points_with_curves( x_train, y_train, (Delta,f), grid=x_test )
 
 
 
