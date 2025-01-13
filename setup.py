@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name = "answers_680",
@@ -7,5 +7,5 @@ setup(
     author = "Thomas Winckelman",
     author_email = "winckelman@tamu.edu",
     py_modules = [ f"answers_week_{j+1}" for j in range(15) ],  # List of top-level Python files (without .py)
-    packages = [ "answers_680" ]
+    packages = find_packages()
 )
