@@ -17,7 +17,7 @@ Besides some standard libraries, this repo depends on the folder of code [qualit
 - [x] Have the repository [quality_of_life](https://github.com/ThomasLastName/quality_of_life) already stored on the path for your Python environment. This has its own installation steps, similar to the steps for this repo. See its README for more info.
 - [x] Have the prerequisite standard packages installed: 
     - `numpy` and `matplotlib` for minimal functionality
-    - `tensorflow`, `pytorch`, `sklearn` for complete functionality
+    - `tqdm`, `tensorflow`, `cvxpy`, `ECOS`, `pytorch`, `sklearn` for complete functionality
 
 ---
 
