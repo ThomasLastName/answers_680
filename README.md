@@ -1,6 +1,11 @@
 # MATH 680 ANSWERS TO EXERCISES IN LABS
 These are the answers to the exercises presented in labs for the class MATH 680 at Texas A&M university, which can be found in my repo [labs_680](https://github.com/ThomasLastName/labs_680). I wrote these as the TA for the class in spring 2024.
 
+# This is deprecated! Please instead see the better packaged answers-680
+
+[https://github.com/ThomasLastName/answers-680](https://github.com/ThomasLastName/answers-680)
+
+
 ---
 
 # Usage
